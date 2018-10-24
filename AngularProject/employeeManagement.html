@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+    <head>
+        <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script
+          src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- <script
+          src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script
+          src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script> -->
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+          
+        </head>
+
+    <body ng-controller="employeeCtrl">
+      <center>
+        <div ng-init="yashImage = 'temp/download.png'">
+            <img ng-src="{{yashImage}}">
+        </div>
+
+        <div class="container">
+          <br>
+  <p > 
+    <a href = "#!home">Home |</a>&nbsp;&nbsp;
+    <a href = "#!about">About US |</a>&nbsp;&nbsp;
+    <a href = "#!contact">Contact </a>
+  </p>
+
+<div ng-view></div>
+<br>
+<div class="row">
+<br>
+    <p align = "right">
+      <input type="text" data-ng-model="search">&nbsp;
+      <button type="submit" data-ng-click = "search()" class="btn btn-default">SEARCH</button>
+    </p>
+
+    <table class="table table-bordered">
+
+      <thead>
+        <tr>
+           <th>Id</th>
+           <th>Name</th>
+           <th>gender</th>
+           <th>Task</th>
+           <th>Assigned By</th>
+           <th>Status</th>
+           <th>Operation</th>
+        </tr>
+      </thead>
+
+      <tr ng-repeat="x in employeeData | filter : search">
+    
+      <td><span>{{x.employeeId}}</span> 
+      </td>	
+      
+      <td><span data-ng-hide="editMode">{{x | genderFilter}}</span>
+        <input type="text" data-ng-show="editMode" data-ng-model="x.name" data-ng-required />
+      </td>
+
+      <td><span data-ng-hide="editMode">{{x.gender}}</span>
+      <input type="text" data-ng-show="editMode" data-ng-model="x.gender" data-ng-required />
+      </td>
+
+      <td><span data-ng-hide="editMode">{{x.task}}</span>
+        <input type="text" data-ng-show="editMode" data-ng-model="x.task" data-ng-required />
+      </td>
+  
+      <td><span data-ng-hide="editMode">{{x.assignedBy}}</span>
+      <input type="text" data-ng-show="editMode" data-ng-model="x.assignedBy" data-ng-required />
+      </td>
+      
+      <td><span data-ng-hide="editMode">{{x.status}}</span>
+      <input type="text" data-ng-show="editMode" data-ng-model="x.status" data-ng-required />
+      </td>
+
+      <td>
+      <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true;" class="btn btn-default">Edit</button>
+      <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; updateEmployee(x)" class="btn btn-default">Save</button>
+      <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = false; deleteEmployee(x.employeeId)" class="btn btn-default">Delete</button> 
+      </td>
+
+    </tr>
+  </table>
+</div>
+</div>
+
+<script src="employeeController.js"></script>
+
+</center>
+ </body>
+
+</html>
+
